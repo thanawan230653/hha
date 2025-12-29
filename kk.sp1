@@ -1,0 +1,88 @@
+# training-simulation.ps1
+# การจำลองเพื่ออบรมเท่านั้น (ไม่ทำอันตราย ไม่แตะไฟล์ ไม่ส่งข้อมูล)
+
+$ErrorActionPreference = "Stop"
+$host.UI.RawUI.WindowTitle = "การจำลองเพื่ออบรม: อย่าคลิกมั่ว (SIMULATION)"
+Clear-Host
+
+function Write-Box($title, $lines) {
+  $width = 74
+  $top = "┌" + ("─" * ($width-2)) + "┐"
+  $mid = "├" + ("─" * ($width-2)) + "┤"
+  $bot = "└" + ("─" * ($width-2)) + "┘"
+  Write-Host $top
+  $t = "│ " + $title.PadRight($width-4) + " │"
+  Write-Host $t
+  Write-Host $mid
+  foreach ($l in $lines) {
+    $line = $l
+    if ($line.Length -gt ($width-4)) { $line = $line.Substring(0, $width-7) + "..." }
+    Write-Host ("│ " + $line.PadRight($width-4) + " │")
+  }
+  Write-Host $bot
+}
+
+Write-Box "SIMULATION • การจำลองเพื่ออบรมเท่านั้น" @(
+  "สคริปต์นี้มีไว้ฝึก 'นิสัยความปลอดภัย' ไม่ใช่มัลแวร์ และไม่ทำอันตรายใดๆ",
+  "เป้าหมาย: ให้หยุด-คิด-ตรวจสอบ ก่อนคลิก/ก่อนรันไฟล์",
+  "",
+  "กติกา: ตอบคำถามสั้นๆ แล้วอ่านสรุปท้ายสุด"
+)
+
+Write-Host ""
+Write-Host "กด Enter เพื่อเริ่ม..." -ForegroundColor Yellow
+[void][System.Console]::ReadLine()
+Clear-Host
+
+# คำถามอบรม
+$score = 0
+
+Write-Box "คำถาม 1/3" @(
+  "มีหน้าต่างเด้งบอกว่า 'เครื่องคุณมีปัญหา ให้กดลิงก์เพื่อแก้ไขทันที'",
+  "คุณควรทำอะไรเป็นอย่างแรก?"
+)
+Write-Host "  A) กดลิงก์ทันที เพราะรีบด่วน"
+Write-Host "  B) หยุด-คิด-ตรวจสอบแหล่งที่มา/โดเมน แล้วถาม IT/Sec"
+Write-Host "  C) ส่งต่อให้เพื่อนทุกคนกดด้วย"
+$ans = Read-Host "เลือก A/B/C"
+if ($ans.Trim().ToUpper() -eq "B") { $score++ }
+
+Write-Host ""
+Write-Box "คำถาม 2/3" @(
+  "คุณได้รับไฟล์แนบชื่อ 'ใบแจ้งหนี้_ด่วน.exe' จากอีเมลที่ไม่คุ้น",
+  "คุณควรทำอย่างไร?"
+)
+Write-Host "  A) ดับเบิลคลิกเพื่อดูว่าอะไร"
+Write-Host "  B) สแกน/ตรวจสอบผู้ส่ง และยืนยันกับต้นทางก่อนเปิด"
+Write-Host "  C) ปิดแอนตี้ไวรัสแล้วค่อยเปิด"
+$ans = Read-Host "เลือก A/B/C"
+if ($ans.Trim().ToUpper() -eq "B") { $score++ }
+
+Write-Host ""
+Write-Box "คำถาม 3/3" @(
+  "สงสัยว่าเครื่องอาจติดมัลแวร์จริง (เห็นอาการแปลก/ไฟล์หาย/CPU พุ่ง)",
+  "ขั้นตอนที่เหมาะสมคืออะไร?"
+)
+Write-Host "  A) ตัดเน็ต (Wi-Fi/LAN) แล้วแจ้ง IT/Sec พร้อมหลักฐาน"
+Write-Host "  B) ลบทุกอย่างเองทันทีโดยไม่บอกใคร"
+Write-Host "  C) จ่ายเงินตามที่หน้าจอขอ"
+$ans = Read-Host "เลือก A/B/C"
+if ($ans.Trim().ToUpper() -eq "A") { $score++ }
+
+Clear-Host
+
+# สรุป
+Write-Box "ผลการอบรม (SIMULATION)" @(
+  ("คะแนนของคุณ: {0}/3" -f $score),
+  "",
+  "หลักจำง่าย: หยุด-คิด-ตรวจสอบ",
+  "  1) อย่าคลิกลิงก์/อย่ารันไฟล์ ถ้าไม่แน่ใจแหล่งที่มา",
+  "  2) ตรวจผู้ส่ง/โดเมน/ชื่อไฟล์ และยืนยันกับต้นทาง",
+  "  3) สงสัยเหตุจริง: ตัดเน็ต + แจ้ง IT/Sec + เก็บหลักฐาน (ภาพหน้าจอ/เวลา)",
+  "",
+  "หมายเหตุ: นี่เป็นการจำลองเพื่อสอนเท่านั้น ไม่ได้ทำอะไรกับเครื่องของคุณ"
+)
+
+Write-Host ""
+Write-Host "กด Enter เพื่อจบ..." -ForegroundColor Yellow
+[void][System.Console]::ReadLine()
